@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.taxi.taxidriver.ui.activity.LoginActivity.loginfragmentManager;
@@ -51,7 +54,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private View rootview;
     private Button btn_signUp;
     private TextView tvSignIn;
-    private ImageView ivBack, ivInsurance, ivDrivingLIcence;
+    private TextView tvLogin;
+    private CircleImageView ivInsurance, ivDrivingLIcence;
 
     @Nullable
     @Override
@@ -72,13 +76,11 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private void init() {
         tvSignIn = rootview.findViewById(R.id.tvSignIn);
         ivInsurance = rootview.findViewById(R.id.ivInsurance);
-        ((ImageView) rootview.findViewById(R.id.ivInsurance)).setOnClickListener(this);
-        ivInsurance.setOnClickListener(this);
-        ivDrivingLIcence = rootview.findViewById(R.id.ivDrivingLIcence);
-        ivDrivingLIcence.setOnClickListener(this);
-        ivBack = rootview.findViewById(R.id.ivBack);
+        ((RelativeLayout) rootview.findViewById(R.id.rlDrivingLicence)).setOnClickListener(this);
+        ((RelativeLayout) rootview.findViewById(R.id.rlInsurance)).setOnClickListener(this);
+        tvLogin = rootview.findViewById(R.id.tvLogin);
         tvSignIn.setOnClickListener(this);
-        ivBack.setOnClickListener(this);
+        tvLogin.setOnClickListener(this);
     }
 
     private void startFragment(String tag, Fragment fragment) {
@@ -94,10 +96,10 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             case R.id.tvSignIn:
                 startActivity(new Intent(mContext, MainHomeActivity.class));
                 break;
-            case R.id.ivBack:
+            case R.id.tvLogin:
                 startFragment(Constant.SignIn, new LoginFragment());
                 break;
-            case R.id.ivInsurance:
+            case R.id.rlInsurance:
                 try {
                     if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(getActivity(),
@@ -110,7 +112,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                     e.printStackTrace();
                 }
                 break;
-            case R.id.ivDrivingLIcence:
+            case R.id.rlDrivingLicence:
                 try {
                     if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(getActivity(),
@@ -254,68 +256,67 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == PICK_IMAGE_CAMERA) {
-                try {
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    ivDrivingLIcence.setImageBitmap(photo);
-                    Uri tempUri = getImageUri(mContext, photo);
-                    finalFile = new File(getRealPathFromURI(tempUri));
+        if (requestCode == PICK_IMAGE_CAMERA) {
+            try {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                ((CircleImageView)rootview.findViewById(R.id.ivDrivingLIcence)).setImageBitmap(photo);
+                Uri tempUri = getImageUri(mContext, photo);
+                finalFile = new File(getRealPathFromURI(tempUri));
 
-                    //api hit
+                //api hit
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else if (requestCode == LOAD_IMAGE_GALLERY && resultCode == RESULT_OK && null != data) {
-                final Uri uriImage = data.getData();
-                final InputStream inputStream;
-                try {
-                    inputStream = mContext.getContentResolver().openInputStream(uriImage);
-                    final Bitmap imageMap = BitmapFactory.decodeStream(inputStream);
-                    ivDrivingLIcence.setImageBitmap(imageMap);
-
-                    String imagePath2 = getPath(uriImage);
-                    File imageFile = new File(imagePath2);
-
-
-                    //api hit
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-            } else if (requestCode == PICK_IMAGE_CAMERA1) {
-                    try {
-                        Bitmap photo = (Bitmap) data.getExtras().get("data");
-                        ivInsurance.setImageBitmap(photo);
-                        Uri tempUri = getImageUri(mContext, photo);
-                        finalFile = new File(getRealPathFromURI(tempUri));
-
-                        //api hit
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else if (requestCode == LOAD_IMAGE_GALLERY1 && resultCode == RESULT_OK && null != data) {
-                    final Uri uriImage = data.getData();
-                    final InputStream inputStream;
-                    try {
-                        inputStream = mContext.getContentResolver().openInputStream(uriImage);
-                        final Bitmap imageMap = BitmapFactory.decodeStream(inputStream);
-                        ivInsurance.setImageBitmap(imageMap);
-
-                        String imagePath2 = getPath(uriImage);
-                        File imageFile = new File(imagePath2);
-
-
-                        //api hit
-                    } catch (FileNotFoundException e) {
-                        Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
-                }
-                else {
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        } else if (requestCode == LOAD_IMAGE_GALLERY && resultCode == RESULT_OK && null != data) {
+            final Uri uriImage = data.getData();
+            final InputStream inputStream;
+            try {
+                inputStream = mContext.getContentResolver().openInputStream(uriImage);
+                final Bitmap imageMap = BitmapFactory.decodeStream(inputStream);
+                ((CircleImageView)rootview.findViewById(R.id.ivDrivingLIcence)).setImageBitmap(imageMap);
+
+                String imagePath2 = getPath(uriImage);
+                File imageFile = new File(imagePath2);
+
+
+                //api hit
+            } catch (FileNotFoundException e) {
+                Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        } else if (requestCode == PICK_IMAGE_CAMERA1) {
+            try {
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                ((CircleImageView)rootview.findViewById(R.id.ivInsurance)).setImageBitmap(photo);
+                Uri tempUri = getImageUri(mContext, photo);
+                finalFile = new File(getRealPathFromURI(tempUri));
+
+                //api hit
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if (requestCode == LOAD_IMAGE_GALLERY1 && resultCode == RESULT_OK && null != data) {
+            final Uri uriImage = data.getData();
+            final InputStream inputStream;
+            try {
+                inputStream = mContext.getContentResolver().openInputStream(uriImage);
+                final Bitmap imageMap = BitmapFactory.decodeStream(inputStream);
+                ((CircleImageView)rootview.findViewById(R.id.ivInsurance)).setImageBitmap(imageMap);
+
+                String imagePath2 = getPath(uriImage);
+                File imageFile = new File(imagePath2);
+
+
+                //api hit
+            } catch (FileNotFoundException e) {
+                Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        } else {
+
+        }
     }
 
     public String getPath(Uri uri) {

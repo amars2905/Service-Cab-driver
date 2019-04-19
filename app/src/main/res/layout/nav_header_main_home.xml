@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Taxi Driver"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="22dp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
 </RelativeLayout>
