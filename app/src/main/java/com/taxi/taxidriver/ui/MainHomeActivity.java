@@ -17,8 +17,8 @@ import com.taxi.taxidriver.R;
 import com.taxi.taxidriver.constant.Constant;
 import com.taxi.taxidriver.ui.activity.EditProfileActivity;
 import com.taxi.taxidriver.ui.fragment.BookingFragment;
-import com.taxi.taxidriver.ui.fragment.DashboardFragment;
-import com.taxi.taxidriver.ui.fragment.HistoryFragment;
+import com.taxi.taxidriver.ui.fragment.NewJobs;
+import com.taxi.taxidriver.ui.fragment.JobHistoryFragment;
 import com.taxi.taxidriver.ui.fragment.ProfileFragment;
 import com.taxi.taxidriver.utils.BaseActivity;
 import com.taxi.taxidriver.utils.FragmentUtils;
@@ -36,9 +36,6 @@ public class MainHomeActivity extends BaseActivity
         setContentView(R.layout.activity_main_home);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        tvEditProfile = findViewById(R.id.tvEditProfile);
-        tvEditProfile.setVisibility(View.GONE);
-        tvEditProfile.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,7 +49,7 @@ public class MainHomeActivity extends BaseActivity
         fragmentManager = getSupportFragmentManager();
         fragmentUtils = new FragmentUtils(fragmentManager);
         toolbar.setTitle("Home");
-        fragmentUtils.replaceFragment(new DashboardFragment(), Constant.DashboardFragment, R.id.main_frame);
+        fragmentUtils.replaceFragment(new NewJobs(), Constant.DashboardFragment, R.id.main_frame);
     }
 
     @Override
@@ -76,21 +73,15 @@ public class MainHomeActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.icDashBoard) {
+        if (id == R.id.newJob) {
             toolbar.setTitle(Constant.DashboardFragment);
-            fragmentUtils.replaceFragment(new DashboardFragment(), Constant.DashboardFragment, R.id.main_frame);
-        } else if (id == R.id.icProfile) {
+            fragmentUtils.replaceFragment(new NewJobs(), Constant.DashboardFragment, R.id.main_frame);
+        } else if (id == R.id.jobProfile) {
             toolbar.setTitle(Constant.ProfileFragment);
             fragmentUtils.replaceFragment(new ProfileFragment(), Constant.ProfileFragment, R.id.main_frame);
-        } else if (id == R.id.icMyBookings) {
-            toolbar.setTitle(Constant.BookingFragment);
-            fragmentUtils.replaceFragment(new BookingFragment(), Constant.BookingFragment, R.id.main_frame);
-        } else if (id == R.id.icHistory) {
+        } else if (id == R.id.jobHistory) {
             toolbar.setTitle(Constant.HistoryFragment);
-            fragmentUtils.replaceFragment(new HistoryFragment(), Constant.HistoryFragment, R.id.main_frame);
-        } else if (id == R.id.icShare) {
-            toolbar.setTitle("Home");
-            fragmentUtils.replaceFragment(new DashboardFragment(), Constant.DashboardFragment, R.id.main_frame);
+            fragmentUtils.replaceFragment(new JobHistoryFragment(), Constant.HistoryFragment, R.id.main_frame);
         } else if (id == R.id.icLogout) {
 
         }
@@ -103,10 +94,6 @@ public class MainHomeActivity extends BaseActivity
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvEditProfile:
-                startActivity(new Intent(mContext, EditProfileActivity.class));
-                break;
-
         }
     }
 }

@@ -20,18 +20,15 @@ import com.taxi.taxidriver.utils.pinview.Pinview;
 
 import static com.taxi.taxidriver.ui.activity.LoginActivity.loginfragmentManager;
 
-public class ForgotPasswordFragment extends BaseFragment implements View.OnClickListener {
+public class OtpFragment extends BaseFragment implements View.OnClickListener {
     private View rootview;
-    private Button btn_fplogin;
-    private TextView otpTime;
-    private LinearLayout resendLayout;
-    private Pinview pinview1;
-    private String strMobile, strOtp;
+    private TextView tvSubmitOtp;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        rootview = inflater.inflate(R.layout.fragment_otp, container, false);
         activity = getActivity();
         mContext = getActivity();
         cd = new ConnectionDirector(mContext);
@@ -40,9 +37,7 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
     }
 
     private void init() {
-        ((Button) rootview.findViewById(R.id.btn_fplogin)).setOnClickListener(this);
-        ((TextView) rootview.findViewById(R.id.tvLogin)).setOnClickListener(this);
-
+        ((TextView) rootview.findViewById(R.id.tvSubmitOtp)).setOnClickListener(this);
     }
 
     private void startFragment(String tag, Fragment fragment) {
@@ -55,10 +50,7 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_fplogin:
-                startFragment(Constant.SignUpFragment, new LoginFragment());
-                break;
-            case R.id.tvLogin:
+            case R.id.tvSubmitOtp:
                 startFragment(Constant.SignUpFragment, new LoginFragment());
                 break;
         }

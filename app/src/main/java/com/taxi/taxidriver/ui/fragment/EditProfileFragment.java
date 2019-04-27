@@ -25,6 +25,5 @@ public class EditProfileFragment extends BaseFragment {
     }
 
     private void init() {
-        tvEditProfile.setVisibility(View.VISIBLE);
     }
 }

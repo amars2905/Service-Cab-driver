@@ -12,15 +12,13 @@ import com.taxi.taxidriver.utils.BaseFragment;
 
 import static com.taxi.taxidriver.ui.MainHomeActivity.tvEditProfile;
 
-
-public class DashboardFragment extends BaseFragment {
+public class JobHistoryFragment extends BaseFragment {
     private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        tvEditProfile.setVisibility(View.GONE);
+        rootView = inflater.inflate(R.layout.fragment_job_history, container, false);
         return rootView;
     }
 }

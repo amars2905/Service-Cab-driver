@@ -5,22 +5,24 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/icDashBoard"
-            android:title="Dashboard" />
+            android:id="@+id/newJob"
+            android:icon="@drawable/ic_edit_newjob"
+            android:title="New Job" />
         <item
-            android:id="@+id/icProfile"
+            android:id="@+id/currentJob"
+            android:icon="@drawable/ic_current_job"
+            android:title="Current Job" />
+        <item
+            android:id="@+id/jobHistory"
+            android:icon="@drawable/ic_sear_jobhistory"
+            android:title="Job History" />
+        <item
+            android:id="@+id/jobProfile"
+            android:icon="@drawable/ic_user_icon_profile"
             android:title="Profile" />
         <item
-            android:id="@+id/icMyBookings"
-            android:title="My Bookings" />
-        <item
-            android:id="@+id/icHistory"
-            android:title="History" />
-        <item
-            android:id="@+id/icShare"
-            android:title="Share" />
-        <item
             android:id="@+id/icLogout"
+            android:icon="@drawable/ic_logout"
             android:title="Logout" />
     </group>
 

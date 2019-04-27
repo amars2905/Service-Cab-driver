@@ -25,8 +25,6 @@ public class ProfileFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void init() {
-        tvEditProfile.setVisibility(View.VISIBLE);
-     //   tvEditProfile.setOnClickListener(this);
     }
 
     @Override

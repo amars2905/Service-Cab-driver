@@ -19,7 +19,7 @@ import static com.taxi.taxidriver.ui.activity.LoginActivity.loginfragmentManager
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
     private View rootview;
-    private TextView tvSignUp,tvSignIn;
+    private TextView tvSignUp,tvSignIn,tvForgotPassword;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,8 +33,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private void init() {
         tvSignIn = rootview.findViewById(R.id.tvSignIn);
         tvSignUp = rootview.findViewById(R.id.tvSignUp);
+        tvForgotPassword = rootview.findViewById(R.id.tvForgotPassword);
         tvSignIn.setOnClickListener(this);
         tvSignUp.setOnClickListener(this);
+        tvForgotPassword.setOnClickListener(this);
     }
 
     private void startFragment(String tag, Fragment fragment) {
@@ -52,6 +54,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.tvSignUp:
                 startFragment(Constant.SignUpFragment, new SignUpFragment());
+                break;
+                case R.id.tvForgotPassword:
+                startFragment(Constant.ForgotPasswordFragment, new ForgotPasswordFragment());
                 break;
         }
 

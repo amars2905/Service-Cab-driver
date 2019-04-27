@@ -27,19 +27,6 @@
             android:paddingRight="20dp"
             android:paddingBottom="10dp">
 
-            <TextView
-                android:id="@+id/tvLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="20dp"
-                android:padding="12dp"
-                android:text="Login"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="normal" />
-
 
             <TextView
                 android:id="@+id/ivlogo"
@@ -48,199 +35,316 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:text="Taxi Driver"
+                android:text="Ragister"
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 android:textStyle="bold" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/rlProfileImage"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp">
+                android:layout_gravity="center"
+                android:layout_margin="20dp">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="UserName"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Phone"
-                    android:inputType="number"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Address"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <RelativeLayout
-                    android:id="@+id/rlDrivingLicence"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfileImage"
                     android:layout_width="100dp"
-                    android:layout_height="100dp">
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_centerVertical="true"
-                        android:text="select image"
-                        android:textSize="10sp" />
+            </RelativeLayout>
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivDrivingLIcence"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true" />
-                </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
+                android:text="Choose Profile Image"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
 
-                <android.support.design.widget.TextInputLayout
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="4dp"
+                app:cardBackgroundColor="#f9f9f9"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="10dp">
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Driving Licences"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Phone"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="4dp"
+                app:cardBackgroundColor="#f9f9f9"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Email Address"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="Select Gender"
+                        android:textColor="@color/black" />
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/blue_600"
+                            android:text="Male" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/blue_600"
+                            android:text="Female"
+                            android:textFontWeight="1" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:buttonTint="@color/blue_600"
+                            android:text="Other" />
+
+                    </RadioGroup>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="4dp"
+                app:cardBackgroundColor="#f9f9f9"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Country"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="State"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="City"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="4dp"
+                app:cardBackgroundColor="#f9f9f9"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rlDrivingLicence"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_centerVertical="true"
+                                android:text="select image"
+                                android:textSize="10sp" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDrivingLIcence"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/gray_border"
+                            android:hint="Driving Licences"
+                            android:inputType="phone"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rlInsurance"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:text="select image"
+                                android:textSize="10sp" />
+
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivInsurance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/gray_border"
+                            android:hint="Insurance Carries"
+                            android:inputType="phone"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Insurance Expiration Date"
                         android:inputType="phone"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="normal" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <RelativeLayout
-                    android:id="@+id/rlInsurance"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="select image"
-                        android:textSize="10sp" />
-
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/ivInsurance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true" />
-                </RelativeLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="10dp">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Insurance Carries"
-                        android:inputType="phone"
-                        android:padding="10dp"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="normal" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="10dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Expiration Date"
-                    android:inputType="phone"
-                    android:padding="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:textStyle="normal" />
-            </android.support.design.widget.TextInputLayout>
 
             <TextView
                 android:id="@+id/tvSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="30dp"
-                android:background="@drawable/yellow_gradient"
+                android:layout_margin="20dp"
+                android:background="@drawable/blue_gradient"
                 android:paddingLeft="50dp"
                 android:paddingTop="8dp"
                 android:paddingRight="50dp"
@@ -251,7 +355,16 @@
                 android:textSize="22sp"
                 android:textStyle="normal" />
 
-
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Back to Login"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="normal" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </RelativeLayout>
