@@ -1,25 +1,41 @@
 package com.taxi.taxidriver.ui.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.taxi.taxidriver.R;
 import com.taxi.taxidriver.constant.Constant;
+import com.taxi.taxidriver.retrofit_provider.RetrofitService;
+import com.taxi.taxidriver.retrofit_provider.WebResponse;
 import com.taxi.taxidriver.ui.MainHomeActivity;
 import com.taxi.taxidriver.utils.BaseFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+
 import static com.taxi.taxidriver.ui.activity.LoginActivity.loginfragmentManager;
 
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
     private View rootview;
-    private TextView tvSignUp,tvSignIn,tvForgotPassword;
+    private TextView tvSignUp, tvSignIn, tvForgotPassword;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,9 +71,38 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             case R.id.tvSignUp:
                 startFragment(Constant.SignUpFragment, new SignUpFragment());
                 break;
-                case R.id.tvForgotPassword:
+            case R.id.tvForgotPassword:
                 startFragment(Constant.ForgotPasswordFragment, new ForgotPasswordFragment());
                 break;
+        }
+    }
+
+    private void loginApi() {
+        if (cd.isNetWorkAvailable()) {
+            String eAddress = ((EditText) rootview.findViewById(R.id.etEmailAddress)).getText().toString();
+            String password = ((EditText) rootview.findViewById(R.id.etPassword)).getText().toString();
+
+            RetrofitService.getServerResponce(new Dialog(mContext), retrofitApiClient.loginData(eAddress, password), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) throws JSONException {
+                    ResponseBody responseBody = (ResponseBody) result.body();
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody.string());
+                      /*  if (!responseBody.string("")){
+
+                        }*/
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+
+                }
+            });
         }
 
     }

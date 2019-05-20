@@ -1,5 +1,6 @@
 package com.taxi.taxidriver.ui.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -9,14 +10,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.taxi.taxidriver.R;
 import com.taxi.taxidriver.constant.Constant;
+import com.taxi.taxidriver.retrofit_provider.RetrofitService;
+import com.taxi.taxidriver.retrofit_provider.WebResponse;
 import com.taxi.taxidriver.utils.BaseFragment;
 import com.taxi.taxidriver.utils.ConnectionDirector;
 import com.taxi.taxidriver.utils.pinview.Pinview;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 import static com.taxi.taxidriver.ui.activity.LoginActivity.loginfragmentManager;
 
@@ -64,66 +76,31 @@ public class ForgotPasswordFragment extends BaseFragment implements View.OnClick
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   /* private void otpApi() {
+    private void forgotPasswordApi() {
         if (cd.isNetWorkAvailable()) {
-            //strMobile = ((EditText) rootview.findViewById(R.id.et_login_email)).getText().toString();
-            strOtp = pinview1.getValue();
-            if (strOtp.isEmpty()) {
-                ((EditText) rootview.findViewById(R.id.et_login_password)).setError("Please enter otp");
-            } else {
-                RetrofitService.getLoginData(new Dialog(mContext), retrofitApiClient.otpApi(strMobile, strOtp), new WebResponse() {
-                    @Override
-                    public void onResponseSuccess(Response<?> result) {
-                        LoginModel loginModel = (LoginModel) result.body();
+            String eAddress = ((EditText) rootview.findViewById(R.id.etEmailAddress)).getText().toString();
 
-                        if (!loginModel.getError())
-                        {
-                            Alerts.show(mContext, loginModel.getMessage());
+            RetrofitService.getServerResponce(new Dialog(mContext), retrofitApiClient.forgotPasswordData(eAddress), new WebResponse() {
+                @Override
+                public void onResponseSuccess(Response<?> result) throws JSONException {
+                    ResponseBody responseBody = (ResponseBody) result.body();
 
-                            AppPreference.setBooleanPreference(mContext, Constant.LOGIN_API , true);
-                            AppPreference.setStringPreference(mContext, Constant.User_Id , loginModel.getUser().getId());
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody.string());
+                      /*  if (!responseBody.string("")){
 
-                            Gson gson = new GsonBuilder().setLenient().create();
-                            String data = gson.toJson(loginModel);
-                            AppPreference.setStringPreference(mContext, Constant.User_Data, data);
-                            User.setUser(loginModel);
-                            Intent intent = new Intent(mContext , HomeActivity.class);
-                            mContext.startActivity(intent);
-                        }
+                        }*/
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
 
-                    @Override
-                    public void onResponseFailed(String error) {
-                        Alerts.show(mContext, error);
-                    }
-                });
-            }
-        }else {
-            cd.show(mContext);
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+
+                }
+            });
         }
-    }*/
+    }
 }

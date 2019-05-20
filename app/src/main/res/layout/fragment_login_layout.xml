@@ -31,21 +31,21 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/et_login_userName"
+            android:id="@+id/etEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:drawableLeft="@drawable/ic_user_icon"
+            android:drawableLeft="@drawable/ic_email_address1"
             android:drawablePadding="10dp"
-            android:hint="UserName"
-            android:inputType="phone"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="normal" />
 
         <EditText
-            android:id="@+id/et_login_password"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

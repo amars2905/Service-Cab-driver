@@ -11,7 +11,6 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvsignuptext"
         android:fillViewport="true"
         android:focusableInTouchMode="true"
         android:focusedByDefault="false"
@@ -82,6 +81,7 @@
                     android:padding="8dp">
 
                     <EditText
+                        android:id="@+id/driverName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -94,6 +94,7 @@
                         android:textStyle="normal" />
 
                     <EditText
+                        android:id="@+id/driverPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -106,6 +107,58 @@
                         android:textStyle="normal" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="4dp"
+                app:cardBackgroundColor="#f9f9f9"
+                app:cardCornerRadius="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:inputType="text"
+                        android:padding="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal">
+
+                        <Spinner
+                            android:id="@+id/spnCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:inputType="text"
+                        android:padding="6dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal">
+
+                        <Spinner
+                            android:id="@+id/spnSubCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -123,11 +176,25 @@
                     android:padding="8dp">
 
                     <EditText
+                        android:id="@+id/emailAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:background="@drawable/gray_border"
                         android:hint="Email Address"
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Password"
                         android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
@@ -189,6 +256,7 @@
                     android:padding="8dp">
 
                     <EditText
+                        android:id="@+id/country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -201,6 +269,7 @@
                         android:textStyle="normal" />
 
                     <EditText
+                        android:id="@+id/state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -213,6 +282,7 @@
                         android:textStyle="normal" />
 
                     <EditText
+                        android:id="@+id/city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -226,6 +296,7 @@
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -241,6 +312,101 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rlAadhar"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_centerVertical="true"
+                                android:text="select image"
+                                android:textSize="10sp" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivAadhar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/aadharNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/gray_border"
+                            android:hint="Aadhar nummber"
+                            android:inputType="phone"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <RelativeLayout
+                            android:id="@+id/rVehicle"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_centerVertical="true"
+                                android:text="select image"
+                                android:textSize="10sp" />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivVehicle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+                        <EditText
+                            android:id="@+id/vehicleNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/gray_border"
+                            android:hint="Vehicle Number"
+                            android:inputType="phone"
+                            android:padding="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="normal" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/vehicleModalNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/gray_border"
+                        android:hint="Vehicle Modal Number"
+                        android:inputType="phone"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="normal" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -269,6 +435,7 @@
                         </RelativeLayout>
 
                         <EditText
+                            android:id="@+id/drivingLIcenceNumber"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -310,6 +477,7 @@
 
 
                         <EditText
+                            android:id="@+id/ivInsuranceCaries"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -324,6 +492,7 @@
                     </LinearLayout>
 
                     <EditText
+                        android:id="@+id/ivInsuranceExpire"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
