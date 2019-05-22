@@ -558,7 +558,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 finalFile = new File(getRealPathFromURI(tempUri));
 
                 //api hit
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -572,7 +571,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
 
                 String imagePath2 = getPath(uriImage);
                 File imageFile = new File(imagePath2);
-
 
                 //api hit
             } catch (FileNotFoundException e) {
@@ -702,7 +700,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 String imagePath2 = getPath(uriImage);
                 File imageFile = new File(imagePath2);
 
-
                 //api hit
             } catch (FileNotFoundException e) {
                 Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
@@ -724,7 +721,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         return strPath;
     }
 
-
     private void categoryApi() {
         if (cd.isNetWorkAvailable()) {
             String strDriverName = ((EditText) rootview.findViewById(R.id.driverName)).getText().toString();
@@ -740,6 +736,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             String strDrivingNumber = ((EditText) rootview.findViewById(R.id.drivingLIcenceNumber)).getText().toString();
             String strInsuranseNumber = ((EditText) rootview.findViewById(R.id.ivInsuranceCaries)).getText().toString();
             String strInsuranceExpireDate = ((EditText) rootview.findViewById(R.id.ivInsuranceExpire)).getText().toString();
+
 
 
             RetrofitService.getCategoryData(new Dialog(mContext), retrofitApiClient.mainCategoryData(), new WebResponse() {
