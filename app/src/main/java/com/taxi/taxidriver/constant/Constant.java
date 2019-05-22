@@ -16,5 +16,5 @@ public class Constant {
     public static final String MAIN_CATEGORY_API = "/texi_booking/Api/vehicles";
     public static final String LOGIN_API = "";
     public static final String FORGOT_PASSWORD_API = "";
-    public static final String DRIVER_REGISTRATION_API = "";
+    public static final String DRIVER_REGISTRATION_API = "/texi_booking/Api/driverSignup";
 }

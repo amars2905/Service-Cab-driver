@@ -46,7 +46,7 @@ public interface RetrofitApiClient {
                                      @Part("vehicle_number") RequestBody vehicle_number,
                                      @Part("driving_license_image") RequestBody driving_license_image,
                                      @Part("insurance_image") RequestBody insurance_image,
-                                     @Part("aadhar_cart_image") RequestBody aadhar_cart_image,
+                                     @Part("aadhar_card_image") RequestBody aadhar_cart_image,
                                      @Part("vehicle_image") RequestBody vehicle_image,
                                      @Part MultipartBody.Part profile_image);
 
