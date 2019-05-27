@@ -1,6 +1,7 @@
 package com.taxi.taxidriver.ui.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +20,8 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +30,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +42,7 @@ import com.taxi.taxidriver.constant.Constant;
 import com.taxi.taxidriver.modal.main_category_modal.Subcategory;
 import com.taxi.taxidriver.modal.main_category_modal.TaxiMainCategoryModal;
 import com.taxi.taxidriver.modal.main_category_modal.Vehicle;
+import com.taxi.taxidriver.modal.signup_responce.SignUpModel;
 import com.taxi.taxidriver.retrofit_provider.RetrofitService;
 import com.taxi.taxidriver.retrofit_provider.WebResponse;
 import com.taxi.taxidriver.ui.MainHomeActivity;
@@ -44,15 +50,23 @@ import com.taxi.taxidriver.utils.Alerts;
 import com.taxi.taxidriver.utils.BaseFragment;
 import com.taxi.taxidriver.utils.ConnectionDirector;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
@@ -79,13 +93,15 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     private List<Vehicle> categoryList = new ArrayList<>();
     List<Subcategory> subcategoryList = new ArrayList<>();
     private String categoryId, subcategoryId;
-    private File finalFile = null;
+    private File finalFile = null, imageProfile = null;
     private String strMedicineImage;
     private View rootview;
     private Button btn_signUp;
     private TextView tvSignIn;
     private TextView tvLogin;
+    private String strGender = "";
     private CircleImageView ivInsurance, ivDrivingLIcence;
+    private String strAadharImage = "", strVehicleImage = "", strDrivingLIImage = "", strInsuImage = "";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Nullable
@@ -117,6 +133,28 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         tvLogin = rootview.findViewById(R.id.tvLogin);
         tvSignIn.setOnClickListener(this);
         tvLogin.setOnClickListener(this);
+
+        RadioGroup rgGender = rootview.findViewById(R.id.rgGender);
+
+        rgGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+                if (null != rb && checkedId > -1) {
+// Toast.makeText(mContext, rb.getText(), Toast.LENGTH_SHORT).show();
+                    strGender = rb.getText().toString();
+                    if (strGender.equals("Male")) {
+                        strGender = "1";
+                    } else if (strGender.equals("Female")) {
+                        strGender = "2";
+                    } else {
+                        strGender = "3";
+                    }
+                }
+            }
+        });
+
         spinnerData();
         categoryApi();
     }
@@ -173,7 +211,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvSignIn:
-                startFragment(Constant.OtpFragment, new OtpFragment());
+                driverRagistrationApi();
                 break;
             case R.id.tvLogin:
                 startFragment(Constant.SignIn, new LoginFragment());
@@ -506,8 +544,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ((CircleImageView) rootview.findViewById(R.id.imgProfileImage)).setImageBitmap(photo);
                 Uri tempUri = getImageUri(mContext, photo);
-                finalFile = new File(getRealPathFromURI(tempUri));
-
+                imageProfile = new File(getRealPathFromURI(tempUri));
                 //api hit
 
             } catch (Exception e) {
@@ -522,7 +559,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 ((CircleImageView) rootview.findViewById(R.id.imgProfileImage)).setImageBitmap(imageMap);
 
                 String imagePath2 = getPath(uriImage);
-                File imageFile = new File(imagePath2);
+                imageProfile = new File(imagePath2);
 
 
                 //api hit
@@ -530,25 +567,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-        } else if (requestCode == LOAD_IMAGE_GALLERY && resultCode == RESULT_OK && null != data) {
-            final Uri uriImage = data.getData();
-            final InputStream inputStream;
-            try {
-                inputStream = mContext.getContentResolver().openInputStream(uriImage);
-                final Bitmap imageMap = BitmapFactory.decodeStream(inputStream);
-                ((CircleImageView) rootview.findViewById(R.id.ivAadhar)).setImageBitmap(imageMap);
-
-                String imagePath2 = getPath(uriImage);
-                File imageFile = new File(imagePath2);
-
-
-                //api hit
-            } catch (FileNotFoundException e) {
-                Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-        } else {
-
         }
         if (requestCode == PICK_IMAGE_CAMERA1) {
             try {
@@ -556,6 +574,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 ((CircleImageView) rootview.findViewById(R.id.ivAadhar)).setImageBitmap(photo);
                 Uri tempUri = getImageUri(mContext, photo);
                 finalFile = new File(getRealPathFromURI(tempUri));
+                strAadharImage = convertToBase64(finalFile.getAbsolutePath());
+
 
                 //api hit
             } catch (Exception e) {
@@ -572,6 +592,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 String imagePath2 = getPath(uriImage);
                 File imageFile = new File(imagePath2);
 
+                strAadharImage = convertToBase64(imageFile.getAbsolutePath());
+
                 //api hit
             } catch (FileNotFoundException e) {
                 Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
@@ -584,7 +606,9 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ((CircleImageView) rootview.findViewById(R.id.ivVehicle)).setImageBitmap(photo);
                 Uri tempUri = getImageUri(mContext, photo);
-                finalFile = new File(getRealPathFromURI(tempUri));
+                File finalFile = new File(getRealPathFromURI(tempUri));
+                strVehicleImage = convertToBase64(finalFile.getAbsolutePath());
+
 
                 //api hit
 
@@ -601,6 +625,7 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
 
                 String imagePath2 = getPath(uriImage);
                 File imageFile = new File(imagePath2);
+                strVehicleImage = convertToBase64(imageFile.getAbsolutePath());
 
 
                 //api hit
@@ -616,8 +641,10 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ((CircleImageView) rootview.findViewById(R.id.ivDrivingLIcence)).setImageBitmap(photo);
                 Uri tempUri = getImageUri(mContext, photo);
-                finalFile = new File(getRealPathFromURI(tempUri));
+                File finalFile = new File(getRealPathFromURI(tempUri));
 
+                strDrivingLIImage = convertToBase64(finalFile.getAbsolutePath());
+                Log.e("img12", strDrivingLIImage);
                 //api hit
 
             } catch (Exception e) {
@@ -634,39 +661,22 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
                 String imagePath2 = getPath(uriImage);
                 File imageFile = new File(imagePath2);
 
+                strDrivingLIImage = convertToBase64(imageFile.getAbsolutePath());
+                Log.e("img12", strDrivingLIImage);
 
                 //api hit
             } catch (FileNotFoundException e) {
                 Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
-        } else if (requestCode == LOAD_IMAGE_GALLERY3 && resultCode == RESULT_OK && null != data) {
-            final Uri uriImage = data.getData();
-            final InputStream inputStream;
-            try {
-                inputStream = mContext.getContentResolver().openInputStream(uriImage);
-                final Bitmap imageMap = BitmapFactory.decodeStream(inputStream);
-                ((CircleImageView) rootview.findViewById(R.id.ivVehicle)).setImageBitmap(imageMap);
-
-                String imagePath2 = getPath(uriImage);
-                File imageFile = new File(imagePath2);
-
-
-                //api hit
-            } catch (FileNotFoundException e) {
-                Toast.makeText(mContext, "Image not found", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-        } else {
-
         }
         if (requestCode == PICK_IMAGE_CAMERA4) {
             try {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
                 ((CircleImageView) rootview.findViewById(R.id.ivInsurance)).setImageBitmap(photo);
                 Uri tempUri = getImageUri(mContext, photo);
-                finalFile = new File(getRealPathFromURI(tempUri));
-
+                File finalFile = new File(getRealPathFromURI(tempUri));
+                strInsuImage = convertToBase64(finalFile.getAbsolutePath());
                 //api hit
 
             } catch (Exception e) {
@@ -682,7 +692,8 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
 
                 String imagePath2 = getPath(uriImage);
                 File imageFile = new File(imagePath2);
-
+                strInsuImage = convertToBase64(imageFile.getAbsolutePath());
+                Log.e("img123", strInsuImage);
 
                 //api hit
             } catch (FileNotFoundException e) {
@@ -708,7 +719,6 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         } else {
 
         }
-
     }
 
     public String getPath(Uri uri) {
@@ -721,7 +731,20 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
         return strPath;
     }
 
-    private void categoryApi() {
+    private String convertToBase64(String path) {
+
+        Bitmap bm = BitmapFactory.decodeFile(path);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
+        byte[] b = baos.toByteArray();
+
+        String encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return encodedImage;
+    }
+
+
+    private void driverRagistrationApi() {
         if (cd.isNetWorkAvailable()) {
             String strDriverName = ((EditText) rootview.findViewById(R.id.driverName)).getText().toString();
             String strDriverPhone = ((EditText) rootview.findViewById(R.id.driverPhone)).getText().toString();
@@ -737,7 +760,64 @@ public class SignUpFragment extends BaseFragment implements View.OnClickListener
             String strInsuranseNumber = ((EditText) rootview.findViewById(R.id.ivInsuranceCaries)).getText().toString();
             String strInsuranceExpireDate = ((EditText) rootview.findViewById(R.id.ivInsuranceExpire)).getText().toString();
 
+            RequestBody driverName = RequestBody.create(MediaType.parse("text/plain"), strDriverName);
+            RequestBody driverPhone = RequestBody.create(MediaType.parse("text/plain"), strDriverPhone);
+            RequestBody driverEmail = RequestBody.create(MediaType.parse("text/plain"), strEmail);
+            RequestBody driverPassword = RequestBody.create(MediaType.parse("text/plain"), strPassword);
+            RequestBody country = RequestBody.create(MediaType.parse("text/plain"), strCountry);
+            RequestBody state = RequestBody.create(MediaType.parse("text/plain"), strState);
+            RequestBody city = RequestBody.create(MediaType.parse("text/plain"), strCity);
+            RequestBody aadhar = RequestBody.create(MediaType.parse("text/plain"), strAadharNumber);
+            RequestBody vehicleNumber = RequestBody.create(MediaType.parse("text/plain"), strVehicleNumnber);
+            RequestBody vehicleModalNumber = RequestBody.create(MediaType.parse("text/plain"), strVehicleModaNumber);
+            RequestBody drivingLicenceNumber = RequestBody.create(MediaType.parse("text/plain"), strDrivingNumber);
+            RequestBody insuranceNumber = RequestBody.create(MediaType.parse("text/plain"), strInsuranseNumber);
+            RequestBody insuranceExpireDate = RequestBody.create(MediaType.parse("text/plain"), strInsuranceExpireDate);
+            RequestBody catId = RequestBody.create(MediaType.parse("text/plain"), categoryId);
+            RequestBody subId = RequestBody.create(MediaType.parse("text/plain"), subcategoryId);
+            RequestBody aadharImage = RequestBody.create(MediaType.parse("text/plain"), strAadharImage);
+            RequestBody insuranceImamge = RequestBody.create(MediaType.parse("text/plain"), strInsuImage);
+            RequestBody vehicleImage = RequestBody.create(MediaType.parse("text/plain"), strVehicleImage);
+            RequestBody drivingliImage = RequestBody.create(MediaType.parse("text/plain"), strDrivingLIImage);
+            RequestBody gender = RequestBody.create(MediaType.parse("text/plain"), strGender);
 
+            MultipartBody.Part fileToUpload = null;
+            if (imageProfile != null) {
+                RequestBody imageBodyFile = RequestBody.create(MediaType.parse("image/*"), imageProfile);
+                fileToUpload = MultipartBody.Part.createFormData("profile_image", imageProfile.getName(), imageBodyFile);
+            }
+
+            RetrofitService.getSignUp(new Dialog(mContext), retrofitApiClient.updateProfile(driverName, driverPassword,
+                    driverPhone, driverEmail, gender, city, state, country, catId, subId, aadhar, drivingLicenceNumber
+                    , insuranceExpireDate, vehicleModalNumber, vehicleNumber, drivingliImage,
+                    insuranceImamge, aadharImage, vehicleImage, fileToUpload), new WebResponse() {
+
+                @Override
+                public void onResponseSuccess(Response<?> result) throws JSONException {
+                    SignUpModel signUpModel = (SignUpModel) result.body();
+                    if (signUpModel.getStatus().equals(1)) {
+                        //  startFragment(Constant.OtpFragment, new OtpFragment());
+                        Alerts.show(mContext, signUpModel.getMessage());
+                    } else {
+                        Alerts.show(mContext, signUpModel.getMessage());
+                    }
+                }
+
+                @Override
+                public void onResponseFailed(String error) {
+                    Alerts.show(mContext, error);
+                }
+            });
+
+        } else {
+            cd.show(mContext);
+        }
+
+    }
+
+
+    private void categoryApi() {
+        if (cd.isNetWorkAvailable()) {
 
             RetrofitService.getCategoryData(new Dialog(mContext), retrofitApiClient.mainCategoryData(), new WebResponse() {
                 @Override

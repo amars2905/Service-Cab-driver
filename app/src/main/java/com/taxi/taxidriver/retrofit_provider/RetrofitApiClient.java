@@ -2,6 +2,7 @@ package com.taxi.taxidriver.retrofit_provider;
 
 import com.taxi.taxidriver.constant.Constant;
 import com.taxi.taxidriver.modal.main_category_modal.TaxiMainCategoryModal;
+import com.taxi.taxidriver.modal.signup_responce.SignUpModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -29,26 +30,26 @@ public interface RetrofitApiClient {
 
     @Multipart
     @POST(Constant.DRIVER_REGISTRATION_API)
-    Call<ResponseBody> updateProfile(@Part("name") RequestBody name,
-                                     @Part("password") RequestBody password,
-                                     @Part("mobile_number") RequestBody mobile_number,
-                                     @Part("email") RequestBody email,
-                                     @Part("gender") RequestBody gender,
-                                     @Part("city") RequestBody city,
-                                     @Part("state") RequestBody state,
-                                     @Part("country") RequestBody country,
-                                     @Part("category_id") RequestBody category_id,
-                                     @Part("subcategory_id") RequestBody subcategory_id,
-                                     @Part("aadhar_number") RequestBody aadhar_number,
-                                     @Part("driving_license_number") RequestBody driving_license_number,
-                                     @Part("insurance_expiration") RequestBody insurance_expiration,
-                                     @Part("model_number") RequestBody model_number,
-                                     @Part("vehicle_number") RequestBody vehicle_number,
-                                     @Part("driving_license_image") RequestBody driving_license_image,
-                                     @Part("insurance_image") RequestBody insurance_image,
-                                     @Part("aadhar_cart_image") RequestBody aadhar_cart_image,
-                                     @Part("vehicle_image") RequestBody vehicle_image,
-                                     @Part MultipartBody.Part profile_image);
+    Call<SignUpModel> updateProfile(@Part("name") RequestBody name,
+                                    @Part("password") RequestBody password,
+                                    @Part("mobile_number") RequestBody mobile_number,
+                                    @Part("email") RequestBody email,
+                                    @Part("gender") RequestBody gender,
+                                    @Part("city") RequestBody city,
+                                    @Part("state") RequestBody state,
+                                    @Part("country") RequestBody country,
+                                    @Part("category_id") RequestBody category_id,
+                                    @Part("subcategory_id") RequestBody subcategory_id,
+                                    @Part("aadhar_number") RequestBody aadhar_number,
+                                    @Part("driving_license_number") RequestBody driving_license_number,
+                                    @Part("insurance_expiration") RequestBody insurance_expiration,
+                                    @Part("model_number") RequestBody model_number,
+                                    @Part("vehicle_number") RequestBody vehicle_number,
+                                    @Part("driving_license_image") RequestBody driving_license_image,
+                                    @Part("insurance_image") RequestBody insurance_image,
+                                    @Part("aadhar_card_image") RequestBody aadhar_cart_image,
+                                    @Part("vehicle_image") RequestBody vehicle_image,
+                                    @Part MultipartBody.Part profile_image);
 
 
 }

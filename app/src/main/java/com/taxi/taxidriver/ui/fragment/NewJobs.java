@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,6 +43,7 @@ public class NewJobs extends BaseFragment implements View.OnClickListener, OnMap
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+        getLatLong();
         return rootView;
     }
 
@@ -57,11 +59,16 @@ public class NewJobs extends BaseFragment implements View.OnClickListener, OnMap
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        getLatLong();
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        if (latitude > 0) {
+            LatLng latLng = new LatLng(latitude, longitude);
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 16);
+            mMap.animateCamera(cameraUpdate);
+        }
 
     }
 

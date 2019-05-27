@@ -100,6 +100,7 @@
                         android:background="@drawable/gray_border"
                         android:hint="Phone"
                         android:inputType="number"
+                        android:maxLength="10"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -181,7 +182,7 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/gray_border"
                         android:hint="Email Address"
-                        android:inputType="text"
+                        android:inputType="textEmailAddress"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -208,6 +209,7 @@
                         android:textColor="@color/black" />
 
                     <RadioGroup
+                        android:id="@+id/rgGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -274,7 +276,7 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/gray_border"
                         android:hint="State"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -287,7 +289,7 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/gray_border"
                         android:hint="City"
-                        android:inputType="number"
+                        android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -350,6 +352,7 @@
                             android:padding="10dp"
                             android:textColor="@color/black"
                             android:textSize="14sp"
+                            android:maxLength="12"
                             android:textStyle="normal" />
                     </LinearLayout>
 
@@ -387,9 +390,10 @@
                             android:layout_margin="10dp"
                             android:background="@drawable/gray_border"
                             android:hint="Vehicle Number"
-                            android:inputType="phone"
+                            android:inputType="textCapCharacters"
                             android:padding="10dp"
                             android:textColor="@color/black"
+                            android:maxLength="18"
                             android:textSize="14sp"
                             android:textStyle="normal" />
                     </LinearLayout>
@@ -441,7 +445,8 @@
                             android:layout_margin="10dp"
                             android:background="@drawable/gray_border"
                             android:hint="Driving Licences"
-                            android:inputType="phone"
+                            android:inputType="number"
+                            android:maxLength="18"
                             android:padding="10dp"
                             android:textColor="@color/black"
                             android:textSize="14sp"
@@ -483,7 +488,7 @@
                             android:layout_margin="10dp"
                             android:background="@drawable/gray_border"
                             android:hint="Insurance Carries"
-                            android:inputType="phone"
+                            android:inputType="textCapCharacters"
                             android:padding="10dp"
                             android:textColor="@color/black"
                             android:textSize="14sp"
@@ -497,7 +502,7 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/gray_border"
                         android:hint="Insurance Expiration Date"
-                        android:inputType="phone"
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:textColor="@color/black"
                         android:textSize="14sp"

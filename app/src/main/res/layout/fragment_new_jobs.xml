@@ -145,7 +145,7 @@
                         android:layout_marginRight="16dp"
                         android:layout_weight="1"
                         android:background="@drawable/black_gradient"
-                        android:text="Accept"
+                        android:text="Cancel"
                         android:textColor="@color/white" />
 
                     <Button

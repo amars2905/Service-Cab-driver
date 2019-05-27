@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Service Cab Driver</string>
-    <string name="google_map_key">AIzaSyBwhwpxhz_rq-Qe9JnHgpxvM-ujbkrvDn4</string>
+    <string name="google_map_key">AIzaSyAOs48WIy7AUrxwE1lVcNLAu-hG8XDmtl0</string>
     <string name="connection">Network error !!!</string>
     <string name="title_activity_main_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

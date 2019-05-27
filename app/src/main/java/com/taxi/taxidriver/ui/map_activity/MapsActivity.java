@@ -139,7 +139,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Go
         MarkerOptions markerOptions = new MarkerOptions();
 
 
-        /*endLatitude = 22.7820662;
+       /* endLatitude = 22.7820662;
         endLongitude = 75.8579348;*/
 
         startLatitude = latitude;
